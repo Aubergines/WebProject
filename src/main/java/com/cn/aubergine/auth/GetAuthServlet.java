@@ -2,6 +2,8 @@ package com.cn.aubergine.auth;
 
 import com.alibaba.fastjson.JSON;
 import com.qiniu.util.Auth;
+import com.qiniu.util.StringMap;
+import com.qiniu.util.UrlSafeBase64;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -51,7 +53,25 @@ public class GetAuthServlet extends HttpServlet {
 
     public String getUpToken(Auth auth,String bucketname){
 
-        return auth.uploadToken(bucketname);
+        StringMap policy = new StringMap();
+        String use_bucket = bucketname;
+        String offset = "4";
+        String keystr = String.valueOf(System.currentTimeMillis());  //.substring(0, key.indexOf("."));
+        String tempTime = String.valueOf(System.currentTimeMillis());
+        //测试先转码成mp4,然后对这个结果进行
+        String saveas1 = UrlSafeBase64.encodeToString(use_bucket + ":" + keystr + "_480_320" + ".mp4");
+        String saveas2 = UrlSafeBase64.encodeToString(use_bucket+":"+keystr+"_1280_720"+".mp4");
+        String saveas3 = UrlSafeBase64.encodeToString(use_bucket+":"+keystr+"_"+tempTime+"_225_150"+".jpg");
+        String saveas4 = UrlSafeBase64.encodeToString(use_bucket+":"+keystr+"_"+tempTime+"_157_109"+".jpg");
+        String saveas5 = UrlSafeBase64.encodeToString(use_bucket+":"+keystr+"_"+tempTime+"_75_52"+".jpg");
+        //avthumb/mp4/rotate/auto/wmImage | avthumb/mp4/s/480x320
+        policy.putNotEmpty("persistentPipeline", "dragon");
+        policy.putNotEmpty("persistentOps", "vframe/jpg/offset/"+offset+"/w/225/h/150|saveas/"+saveas3 +
+                ";vframe/jpg/offset/"+offset+"/w/157/h/109|saveas/"+saveas4 +
+                ";vframe/jpg/offset/"+offset+"/w/75/h/52|saveas/"+saveas5);
+
+        return auth.uploadToken(use_bucket, keystr, 7200, policy);
+
     }
 
     public static String getCurrentDateNum()
