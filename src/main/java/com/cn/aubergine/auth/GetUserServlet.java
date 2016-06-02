@@ -2,6 +2,7 @@ package com.cn.aubergine.auth;
 
 import com.alibaba.fastjson.JSON;
 import com.cn.aubergine.model.AppRole;
+import com.cn.aubergine.model.Response;
 import com.cn.aubergine.model.User;
 
 import javax.servlet.ServletException;
@@ -37,7 +38,8 @@ public class GetUserServlet extends HttpServlet {
         user.setSalesDeptCode("salesDeptCode");
         user.setPhoneNumber("phoneNumber");
         user.setAppRole(listRole);
-        String json = JSON.toJSONString(user, true);
+        Response responseData = new Response(user,1,"10001");
+        String json = JSON.toJSONString(responseData, true);
         PrintWriter out = response.getWriter();
         out.print(json);
     }
