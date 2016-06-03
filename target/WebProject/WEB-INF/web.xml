@@ -11,10 +11,21 @@
         <servlet-name>getAuthAction</servlet-name>
         <servlet-class>com.cn.aubergine.auth.GetAuthServlet</servlet-class>
     </servlet>
+    <servlet>
+        <description>This is the description of my J2EE component</description>
+        <display-name>This is the display name of my J2EE component</display-name>
+        <servlet-name>getUserAction</servlet-name>
+        <servlet-class>com.cn.aubergine.auth.GetUserServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>getAuthAction</servlet-name>
         <url-pattern>/getAuth/test</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>getUserAction</servlet-name>
+        <url-pattern>/getUser/test</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>
