@@ -66,7 +66,9 @@ public class GetAuthServlet extends HttpServlet {
         String saveas5 = UrlSafeBase64.encodeToString(use_bucket+":"+keystr+"_"+tempTime+"_75_52"+".jpg");
         //avthumb/mp4/rotate/auto/wmImage | avthumb/mp4/s/480x320
         policy.putNotEmpty("persistentPipeline", "dragon");
-        policy.putNotEmpty("persistentOps", "vframe/jpg/offset/"+offset+"/w/225/h/150|saveas/"+saveas3 +
+        policy.putNotEmpty("persistentOps", "avthumb/mp4/s/480x320/rotate/auto|saveas/"+saveas1+
+                ";avthumb/mp4/s/1280x720/rotate/auto|saveas/"+saveas2+
+                ";vframe/jpg/offset/"+offset+"/w/225/h/150|saveas/"+saveas3 +
                 ";vframe/jpg/offset/"+offset+"/w/157/h/109|saveas/"+saveas4 +
                 ";vframe/jpg/offset/"+offset+"/w/75/h/52|saveas/"+saveas5);
 
