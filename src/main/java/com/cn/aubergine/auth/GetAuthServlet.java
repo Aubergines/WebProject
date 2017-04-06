@@ -29,15 +29,10 @@ public class GetAuthServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         String ACCESS_KEY = "DgD2ppwRLMqSITFwJSEFSBaqkwPQdD3xUQVuVWpt";
         String SECRET_KEY = "vJ6DbpexZQjXgOomuyBxyCisuN4JV0ZmRjL6sKjo";
-        //要上传的空间
         String bucketname = "dragon";
-        //上传到七牛后保存的文件名
         String key = "my-java.png";
-        //上传文件的路径
         String FilePath = "/.../...";
-        //密钥配置
         Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
-        //创建上传对象
         String upToken = getUpToken(auth, bucketname);
         Map map = new HashMap();
         map.put( "token", upToken);
@@ -58,7 +53,6 @@ public class GetAuthServlet extends HttpServlet {
         String offset = "4";
         String keystr = String.valueOf(System.currentTimeMillis());  //.substring(0, key.indexOf("."));
         String tempTime = String.valueOf(System.currentTimeMillis());
-        //测试先转码成mp4,然后对这个结果进行
         String saveas1 = UrlSafeBase64.encodeToString(use_bucket + ":" + keystr + "_480_320" + ".mp4");
         String saveas2 = UrlSafeBase64.encodeToString(use_bucket+":"+keystr+"_1280_720"+".mp4");
         String saveas3 = UrlSafeBase64.encodeToString(use_bucket+":"+keystr+"_"+tempTime+"_225_150"+".jpg");
@@ -72,7 +66,7 @@ public class GetAuthServlet extends HttpServlet {
                 ";vframe/jpg/offset/"+offset+"/w/157/h/109|saveas/"+saveas4 +
                 ";vframe/jpg/offset/"+offset+"/w/75/h/52|saveas/"+saveas5);
 
-        return auth.uploadToken(use_bucket, keystr, 7200, policy);
+        return auth.uploadToken(use_bucket);
 
     }
 
